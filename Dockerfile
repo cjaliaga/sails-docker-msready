@@ -2,6 +2,8 @@
 FROM node:6
 
 RUN mkdir -p /opt/app
+# set permissions to .tmp
+RUN mkdir -p /opt/app/.tmp & chmod -R 777 /opt/app/.tmp
 
 # set our node environment, either development or production
 # defaults to production, compose overrides this to development on build and run
@@ -23,9 +25,7 @@ ENV PATH /opt/node_modules/.bin:$PATH
 WORKDIR /opt/app
 COPY . /opt/app
 
-# set permissions to .tmp
 
-RUN mkdir -p /opt/app/.tmp & chmod -R 777 /opt/app/.tmp
 
 # Runing PM2
 CMD [ "node", "app.js" ]
