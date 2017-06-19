@@ -17,12 +17,15 @@ EXPOSE $PORT 5858 9229
 WORKDIR /opt
 COPY package.json /opt
 RUN npm install && npm cache clean --force
-RUN npm install pm2 -g
 ENV PATH /opt/node_modules/.bin:$PATH
 
 # copy in our source code last, as it changes the most
 WORKDIR /opt/app
 COPY . /opt/app
 
+# set permissions to .tmp
+
+RUN chmod -R 777 /opt/app/.tmp
+
 # Runing PM2
-CMD pm2 start --no-daemon app.js
+CMD [ "node", "app.js" ]
