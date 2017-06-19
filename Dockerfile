@@ -25,7 +25,7 @@ COPY . /opt/app
 
 # set permissions to .tmp
 
-RUN chmod -R 777 /opt/app/.tmp
+RUN mkdir -p /opt/app/.tmp & chmod -R 777 /opt/app/.tmp
 
 # Runing PM2
 CMD [ "node", "app.js" ]
