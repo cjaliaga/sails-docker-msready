@@ -25,5 +25,7 @@ COPY . /opt/app
 
 RUN chown -R node /opt/app
 
-# Runing PM2
+User node
+
+# Runing App
 CMD [ "node", "app.js" ]
