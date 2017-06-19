@@ -13,20 +13,17 @@ ARG PORT=80
 ENV PORT $PORT
 EXPOSE $PORT 5858 9229
 
-User node
 # install dependencies first, in a different location for easier app bind mounting for local development
 WORKDIR /opt
 COPY package.json /opt
 RUN npm install && npm cache clean --force
 ENV PATH /opt/node_modules/.bin:$PATH
 
-User root
-
 # copy in our source code last, as it changes the most
 WORKDIR /opt/app
 COPY . /opt/app
 
-
+RUN chown -R node /opt/app
 
 # Runing PM2
 CMD [ "node", "app.js" ]
